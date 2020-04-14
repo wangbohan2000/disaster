@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>登录 | 应急物流信息系统</title>
+    <link
+            href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin"
+            rel="stylesheet"
+    />
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/nifty.min.css" rel="stylesheet"/>
+    <link
+            href="/premium/icon-sets/icons/line-icons/premium-line-icons.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="/premium/icon-sets/icons/solid-icons/premium-solid-icons.min.css"
+            rel="stylesheet"
+    />
+    <link href="/plugins/magic-check/css/magic-check.min.css" rel="stylesheet"/>
+    <link
+            href="/plugins/bootstrap-validator/bootstrapValidator.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="/plugins/bootstrap-select/bootstrap-select.min.css"
+            rel="stylesheet"
+    />
+    <link href="/plugins/pace/pace.min.css" rel="stylesheet"/>
+    <link href="/plugins/toastr/toastr.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="cls-container" id="container">
+    <!-- BACKGROUND IMAGE -->
+    <!--===================================================-->
+    <div
+            class="bg-img"
+            id="bg-overlay"
+            style="background-image: url(img/bg-img-3.jpg)"
+    ></div>
+
+    <!-- REGISTER FORM -->
+    <!--===================================================-->
+    <div class="cls-content" id="register_panel" style="display: none;">
+        <div class="cls-content-sm panel">
+            <div class="panel-body">
+                <div class="mar-ver pad-btm">
+                    <h1 class="h3">注 册</h1>
+                    <p>应急物流信息系统注册</p>
+                </div>
+
+                <form action="/signOn" id="register_form" method="POST">
+                    <div class="form-group">
+                        <input
+                                autofocus
+                                class="form-control"
+                                id="checkUsernameOnly"
+                                name="username"
+                                placeholder="用户名"
+                                type="text"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <input
+                                autofocus
+                                class="form-control"
+                                name="password"
+                                placeholder="密码"
+                                type="password"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <input
+                                autofocus
+                                class="form-control"
+                                name="repassword"
+                                placeholder="确认密码"
+                                type="password"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <!-- Default Bootstrap Select -->
+                        <!--===================================================-->
+                        <select
+                                class="selectpicker"
+                                data-width="100%"
+                                name="choose_identity"
+                                title="选择身份"
+                        >
+                            <option value="ROLE_ADMIN">用户管理</option>
+                            <option value="ROLE_FRONT">受灾一线</option>
+                            <option value="ROLE_PROVIDER">物资提供</option>
+                            <option value="ROLE_MANAGER">决策用户</option>
+                            <option value="ROLE_LOGISTICS">物流管理</option>
+                        </select>
+                    </div>
+
+                    <button
+                            class="btn btn-primary btn-lg btn-block"
+                            id="register_submit_button"
+                            type="submit"
+                    >
+                        注 册
+                    </button>
+                </form>
+            </div>
+
+            <div class="pad-all" style="padding: 22px;">
+                已有账户？<a class="btn-link mar-lft" href="#" id="to_login_panel">
+                立即登录</a
+            >
+            </div>
+        </div>
+    </div>
+    <!--===================================================-->
+
+    <!-- LOGIN FORM -->
+    <!--===================================================-->
+    <div class="cls-content" id="login_panel">
+        <div class="cls-content-sm panel">
+            <div class="panel-body">
+                <div class="mar-ver pad-btm">
+                    <h1 class="h3">登 陆</h1>
+                    <p>应急物流信息系统登陆</p>
+                </div>
+                <form action="/signIn" id="login_form" method="POST">
+                    <div class="form-group">
+                        <input
+                                autofocus
+                                class="form-control"
+                                name="username"
+                                placeholder="用户名"
+                                type="text"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <input
+                                class="form-control"
+                                name="password"
+                                placeholder="密码"
+                                type="password"
+                        />
+                    </div>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">
+                        登 陆
+                    </button>
+                </form>
+            </div>
+
+            <div class="pad-all" style="padding: 22px;">
+                <a class="btn-link mar-lft" href="#" id="to_register_panel">创建一个新用户</a>
+            </div>
+        </div>
+    </div>
+    <!--===================================================-->
+</div>
+<!--===================================================-->
+<!-- END OF CONTAINER -->
+
+<script src="plugins/pace/pace.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/nifty.min.js"></script>
+<script src="plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+<script src="plugins/masked-input/jquery.maskedinput.min.js"></script>
+<script src="js/StystemPage/login-form-validation.js"></script>
+<script src="plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="plugins/toastr/toastr.min.js"></script>
+
+<script>
+    //转换到登录面板
+    var to_login_panel = document.getElementById("to_login_panel");
+    to_login_panel.addEventListener("click", function (params) {
+        document.title = "登录 | 应急物流信息系统";
+        document.getElementById("register_panel").style.display = "none";
+        document.getElementById("login_panel").style.display = "block";
+    });
+
+    //转换到登录面板
+    var to_register_panel = document.getElementById("to_register_panel");
+    to_register_panel.addEventListener("click", function (params) {
+        document.title = "注册 | 应急物流信息系统";
+        document.getElementById("login_panel").style.display = "none";
+        document.getElementById("register_panel").style.display = "block";
+    });
+    //初始化警告框插件
+    toastr.options.positionClass = "toast-top-center";
+    // 注册面板检查注册用户名是否唯一
+    const input = document.querySelector("#checkUsernameOnly");
+    input.addEventListener("blur", async function (params) {
+        const username = params.target.value;
+        const url = "/user_exists/" + username;
+        // var url = 'http://jsonplaceholder.typicode.com/posts';
+        await fetch(url, {
+            method: "GET" // or 'PUT'
+        })
+            .then(res => res.json())
+            .catch(error => console.error("Error:", error))
+            // 成功之后调用下面这个then
+            .then(response => {
+                console.log("Success:", response);
+                //如果返回的字段是true
+                if (!response.data) {
+                    toastr.success("当前用户名可用");
+                    //启用注册button
+                    document
+                        .getElementById("register_submit_button")
+                        .setAttribute("disabled", false);
+                    document.querySelector("#checkUsernameOnly").style.border = "";
+                } else {
+                    toastr.error("当前用户名已被使用");
+                    //禁用注册button
+                    document
+                        .getElementById("register_submit_button")
+                        .setAttribute("disabled", true);
+                    document.querySelector("#checkUsernameOnly").style.border =
+                        "1px solid red";
+                }
+                // toastr.warning('警告');
+                // toastr.info('info');
+            });
+    });
+
+    //登录提交请求
+</script>
+
+<!--=================================================
+
+REQUIRED
+You must include this in your project.
+
+
+RECOMMENDED
+This category must be included but you may modify which plugins or components which should be included in your project.
+
+
+OPTIONAL
+Optional plugins. You may choose whether to include it in your project or not.
+
+
+Detailed information and more samples can be found in the document.
+
+=================================================-->
+</body>
+</html>

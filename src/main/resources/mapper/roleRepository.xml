@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wbhan.disaster.repository.RoleRepository">
+    <insert id="insert" parameterType="cn.wbhan.disaster.model.Role" keyColumn="id" keyProperty="id" flushCache="true"
+            useGeneratedKeys="true">
+        insert into role(name, namecn)
+        values (#{name}, #{nameCN});
+    </insert>
+
+    <delete id="deleteById" flushCache="true" parameterType="long">
+        delete
+        from role
+        where id = #{id};
+    </delete>
+
+    <update id="update" parameterType="cn.wbhan.disaster.model.Role">
+        update role
+        set name   = #{name},
+            nameCN = #{nameCN}
+        where id = #{id};
+    </update>
+
+    <select id="findByName" parameterType="string" useCache="true" resultType="cn.wbhan.disaster.model.Role">
+        select id, name, nameCN
+        from role
+        where name = #{name};
+    </select>
+
+    <select id="findById" parameterType="long" useCache="true" resultType="cn.wbhan.disaster.model.Role">
+        select id, name, nameCN
+        from role
+        where id = #{id};
+    </select>
+</mapper>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wbhan.disaster.repository.DisasterRepository">
+    <insert id="insert" useGeneratedKeys="true" flushCache="true" parameterType="cn.wbhan.disaster.model.Disaster">
+        insert into disaster(title, details, createDate, provider_id, expect_goods_name, expect_goods_cnt,
+                             expect_goods_unit)
+        values (#{title}, #{details}, #{createDate}, #{provider.id}, #{expectGoodsName}, #{expectGoodsCnt},
+                #{expectGoodsUnit});
+    </insert>
+
+    <delete id="deleteById" parameterType="long">
+        delete
+        from disaster
+        where id = #{id};
+    </delete>
+
+    <update id="update" parameterType="cn.wbhan.disaster.model.Disaster">
+        update disaster
+        set title             = #{title},
+            details           = #{details},
+            createDate        = #{createDate},
+            provider_id       = #{provider.id},
+            expect_goods_name = #{expectGoodsName},
+            expect_goods_cnt  = #{expectGoodsCnt},
+            expect_goods_unit = #{expectGoodsUnit},
+            pass              = #{pass}
+        where id = #{id};
+    </update>
+
+    <update id="updateStatus">
+        update disaster
+        set pass = #{status}
+        where id = #{id};
+    </update>
+
+    <select id="findById" resultMap="disasterMap" parameterType="long">
+        select d.id                as id,
+               d.title             as title,
+               d.details           as details,
+               d.createDate        as createDate,
+               d.expect_goods_name as expect_goods_name,
+               d.expect_goods_cnt  as expect_goods_cnt,
+               d.expect_goods_unit as expect_goods_unit,
+               d.pass              as pass,
+               u.id                as u_id,
+               u.username          as u_username,
+               u.password          as u_password,
+               u.enable            as u_enable,
+               u.create_date       as u_createDate
+        from disaster d
+                 left join user u on d.provider_id = u.id
+        where d.id = #{id};
+    </select>
+
+    <select id="findAll" resultMap="disasterMap">
+        select d.id                as id,
+               d.title             as title,
+               d.details           as details,
+               d.createDate        as createDate,
+               d.expect_goods_name as expect_goods_name,
+               d.expect_goods_cnt  as expect_goods_cnt,
+               d.expect_goods_unit as expect_goods_unit,
+               d.pass              as pass,
+               u.id                as u_id,
+               u.username          as u_username,
+               u.password          as u_password,
+               u.enable            as u_enable,
+               u.create_date       as u_createDate
+        from disaster d
+                 left join user u on d.provider_id = u.id
+        order by d.createDate
+        limit ${offset}, ${limit};
+    </select>
+
+
+    <select id="findAllByUsername" resultMap="disasterMap">
+        select d.id                as id,
+               d.title             as title,
+               d.details           as details,
+               d.createDate        as createDate,
+               d.expect_goods_name as expect_goods_name,
+               d.expect_goods_cnt  as expect_goods_cnt,
+               d.expect_goods_unit as expect_goods_unit,
+               d.pass              as pass,
+               u.id                as u_id,
+               u.username          as u_username,
+               u.password          as u_password,
+               u.enable            as u_enable,
+               u.create_date       as u_createDate
+        from disaster d
+                 left join user u on d.provider_id = u.id
+        where u.username = #{username}
+        order by d.createDate
+        limit ${offset}, ${limit};
+    </select>
+
+    <select id="findAllByPass" resultMap="disasterMap">
+        select d.id                as id,
+               d.title             as title,
+               d.details           as details,
+               d.createDate        as createDate,
+               d.expect_goods_name as expect_goods_name,
+               d.expect_goods_cnt  as expect_goods_cnt,
+               d.expect_goods_unit as expect_goods_unit,
+               d.pass              as pass,
+               u.id                as u_id,
+               u.username          as u_username,
+               u.password          as u_password,
+               u.enable            as u_enable,
+               u.create_date       as u_createDate
+        from disaster d
+                 left join user u on d.provider_id = u.id
+        where d.pass = #{pass}
+        order by d.createDate
+        limit ${offset}, ${limit};
+    </select>
+
+    <select id="findAllApproved" resultMap="disasterMap">
+        select d.id                as id,
+               d.title             as title,
+               d.details           as details,
+               d.createDate        as createDate,
+               d.expect_goods_name as expect_goods_name,
+               d.expect_goods_cnt  as expect_goods_cnt,
+               d.expect_goods_unit as expect_goods_unit,
+               d.pass              as pass,
+               u.id                as u_id,
+               u.username          as u_username,
+               u.password          as u_password,
+               u.enable            as u_enable,
+               u.create_date       as u_createDate
+        from disaster d
+                 left join user u on d.provider_id = u.id
+        where d.pass = '审批通过'
+           or d.pass = '审批未通过'
+        order by d.createDate
+        limit ${offset}, ${limit};
+    </select>
+
+    <resultMap id="disasterMap" type="cn.wbhan.disaster.model.Disaster">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="details" column="details"/>
+        <result property="createDate" column="createDate"/>
+        <result property="expectGoodsName" column="expect_goods_name"/>
+        <result property="expectGoodsCnt" column="expect_goods_cnt"/>
+        <result property="expectGoodsUnit" column="expect_goods_unit"/>
+        <result property="pass" column="pass"/>
+        <association property="provider" javaType="cn.wbhan.disaster.model.User">
+            <id property="id" column="u_id"/>
+            <result property="username" column="u_username"/>
+            <result property="password" column="u_password"/>
+            <result property="enable" column="u_enable"/>
+            <result property="createDate" column="u_createDate"/>
+        </association>
+    </resultMap>
+</mapper>

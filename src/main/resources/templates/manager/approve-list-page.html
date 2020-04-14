@@ -1,0 +1,280 @@
+<!-- 所有一线申请的列表 （表格）  -->
+
+
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org/">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>已审批订单</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/nifty.min.css" rel="stylesheet">
+    <link href="/premium/icon-sets/icons/line-icons/premium-line-icons.min.css" rel="stylesheet">
+    <link href="/premium/icon-sets/icons/solid-icons/premium-solid-icons.min.css" rel="stylesheet">
+    <link href="/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="container" class="effect mainnav-lg">
+
+    <!--NAVBAR-->
+    <!--===================================================-->
+    <header id="navbar">
+        <div id="navbar-container" class="boxed">
+
+            <!--Brand logo & name-->
+            <!--================================-->
+            <div class="navbar-header">
+                <a href="index.html" class="navbar-brand">
+                    <img src="/img/logo.png" alt="Nifty Logo" class="brand-icon">
+                    <div class="brand-title">
+                        <span style="font-size: 1.5rem;">应急物流信息系统</span>
+                    </div>
+                </a>
+            </div>
+            <!--================================-->
+            <!--End brand logo & name-->
+
+
+            <!--Navbar Dropdown-->
+            <!--================================-->
+            <div class="navbar-content clearfix">
+                <ul class="nav navbar-top-links pull-left">
+
+                    <!--Navigation toogle button-->
+                    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                    <li class="tgl-menu-btn">
+                        <a class="mainnav-toggle" href="#">
+                            <i class="pli-view-list icon-lg"></i>
+                        </a>
+                    </li>
+                    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                    <!--End Navigation toogle button-->
+                </ul>
+            </div>
+            <!--================================-->
+            <!--End Navbar Dropdown-->
+
+        </div>
+    </header>
+    <!--===================================================-->
+    <!--END NAVBAR-->
+
+    <div class="boxed">
+
+        <!--CONTENT CONTAINER-->
+        <!--===================================================-->
+        <div id="content-container">
+
+            <!--Page Title-->
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="page-title">
+                <h1 class="page-header text-overflow">Welcome</h1>
+
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <!--End page title-->
+
+
+            <!--Breadcrumb-->
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <ol class="breadcrumb">
+                <li><a href="/home-page.html">首页</a></li>
+                <li class="active">已审批订单</li>
+            </ol>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <!--End breadcrumb-->
+
+
+            <!--Page content-->
+            <!--===================================================-->
+            <div id="page-content">
+
+
+                <div class="col-sm-12">
+
+                    <!--Custom Toolbar-->
+                    <!--===================================================-->
+                    <div class="panel" style="min-height: 60rem;">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">已审批的受灾情况单：订单历史记录</h3>
+                        </div>
+                        <div class="panel-body">
+                            <!--  配置信息见下面js的脚本 -->
+                            <table id="table"></table>
+
+                        </div>
+                    </div>
+                    <!--===================================================-->
+
+                </div>
+            </div>
+
+            <!--===================================================-->
+            <!--End page content-->
+
+
+        </div>
+        <!--===================================================-->
+        <!--END CONTENT CONTAINER-->
+
+
+        <!--MAIN NAVIGATION-->
+        <!--===================================================-->
+        <div th:include="/public/navbar.html"></div>
+        <!--===================================================-->
+        <!--END MAIN NAVIGATION-->
+
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <!--===================================================-->
+    <footer id="footer">
+
+
+        <!-- Visible when footer positions are static -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <div class="hide-fixed pull-right pad-rgt">
+            2020 Emergency Logistics Information System!
+        </div>
+
+
+    </footer>
+    <!--===================================================-->
+    <!-- END FOOTER -->
+
+
+    <!-- SCROLL PAGE BUTTON -->
+    <!--===================================================-->
+    <button class="scroll-top btn">
+        <i class="pci-chevron chevron-up"></i>
+    </button>
+    <!--===================================================-->
+
+
+</div>
+<!--===================================================-->
+<!-- END OF CONTAINER -->
+<link href="/css/pace.min.css" rel="stylesheet">
+<script src="/js/pace.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/nifty.min.js"></script>
+<script src="/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="/plugins/bootstrap-table/extensions/editable/bootstrap-table-editable.min.js"></script>
+
+<script async>
+    $('#table').bootstrapTable({
+        // 返回一个包含数据对象的数组
+        url: '/manager/disaster_approved',
+        method: 'get',                      //请求方式（*）
+        columns: [{
+            field: 'id',
+            title: 'ID',
+            align: 'center',
+            valign: 'middle',
+        }, {
+            field: 'name',
+            title: '受灾名称',
+            align: 'center',
+            valign: 'middle',
+        }, {
+            field: 'expectGoodsName',
+            title: '请求物资',
+            align: 'center',
+            valign: 'middle',
+        }, {
+            field: 'expectGoodsCnt',
+            title: '物资数量',
+            align: 'center',
+            valign: 'middle'
+        }, {
+            field: 'expectGoodsUnit',
+            title: '计量单位',
+            align: 'center',
+            valign: 'middle',
+        }, {
+            field: 'createDate',
+            title: '提交时间',
+            align: 'center',
+            valign: 'middle',
+        }, {
+            field: 'provider.username',
+            title: '提交用户',
+            align: 'center',
+            valign: 'middle',
+        }, {
+            field: 'details',
+            title: '灾情详细情况',
+            align: 'center',
+            valign: 'middle',
+        }, {
+            title: '审批状态',
+            align: 'center',
+            valign: 'middle',
+            formatter: function (value, row, index) {
+                if (row.pass === '审批通过')
+                    return `<span class="label label-success">审批通过</span>`;
+                if (row.pass === '审批未通过')
+                    return `<span class="label label-danger">审批不通过</span>`;
+
+                //通过状态判断显示什么标签
+                // if(row.postId == 1){
+                //     return `
+                //     <span class="label label-default">未提交</span>
+                //     `
+                // }else if(row.postId == 2){
+                //     return `
+                //     <span class="label label-primary">审批不通过</span>
+                //     `
+                // }else if(row.postId == 3){
+                //     return `
+                //     <span class="label label-success">审批通过</span>
+                //     `
+                // }
+                //所有的标签类型
+                // return `
+                //                 <span class="label label-default">Default</span>
+                //                 <span class="label label-primary">Primary</span>
+                //                 <span class="label label-success">Success</span>
+                //                 <span class="label label-info">Info</span>
+                //                 <span class="label label-warning">Warning</span>
+                //                 <span class="label label-danger">Danger</span>
+                //                 <span class="label label-mint">Mint</span>
+                //                 <span class="label label-purple">Purple</span>
+                //                 <span class="label label-pink">Pink</span>
+                //                 <span class="label label-dark">Dark</span>
+                // `
+            }
+        },
+        ],
+        toolbar: '#toolbar',                //工具按钮用哪个容器
+        striped: true,                      //是否显示行间隔色
+        cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        pagination: true,                   //是否显示分页（*）
+        sortable: false,                     //是否启用排序
+        sortOrder: "asc",                   //排序方式
+        // queryParams: oTableInit.queryParams,//传递参数（*）
+        sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+        pageNumber: 1,                       //初始化加载第一页，默认第一页
+        pageSize: 5,                       //每页的记录行数（*）
+        pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+        search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端
+        strictSearch: false,
+        showColumns: true,                  //是否显示所有的列
+        showRefresh: false,                  //是否显示刷新按钮
+        minimumCountColumns: 2,             //最少允许的列数
+        clickToSelect: true,                //是否启用点击选中行
+        // height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+        showToggle: false,                    //是否显示详细视图和列表视图的切换按钮
+        cardView: false,                    //是否显示详细视图
+        detailView: false,                   //是否显示父子表
+    });
+</script>
+</body>
+
+</html>

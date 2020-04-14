@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wbhan.disaster.repository.UserRepository">
+    <insert id="insert" parameterType="cn.wbhan.disaster.model.User" flushCache="true" useGeneratedKeys="true">
+        insert into user(username, password, enable, create_date, role_id)
+        values (#{username}, #{password}, #{enable}, #{createDate}, #{role.id});
+    </insert>
+
+    <delete id="deleteById" flushCache="true" parameterType="long">
+        delete
+        from user
+        where id = #{id};
+    </delete>
+
+    <update id="update" parameterType="cn.wbhan.disaster.model.User" flushCache="true">
+        update user
+        set username    = #{username},
+            password    = #{password},
+            enable      = #{enable},
+            create_date = #{createDate},
+            role_id     = #{role.id}
+        where id = #{id}
+    </update>
+
+    <select id="findById" flushCache="true" parameterType="long" resultMap="userMap">
+        select user.id,
+               username,
+               password,
+               enable,
+               create_date,
+               role_id,
+               name   as role_name,
+               nameCN as role_nameCN
+        from user
+                 left join role on user.role_id = role.id
+        where user.id = #{id};
+    </select>
+
+    <select id="findByUsername" flushCache="true" parameterType="string" resultMap="userMap">
+        select u.id          as id,
+               u.username    as username,
+               u.password    as password,
+               u.enable      as enable,
+               u.create_date as createDate,
+               u.role_id     as role_id,
+               r.name        as role_name,
+               r.nameCN      as role_nameCN
+        from user u
+                 left join role r on u.role_id = r.id
+        where username = #{username};
+    </select>
+
+    <select id="findAllDisabled" flushCache="true" resultMap="userMap" resultType="cn.wbhan.disaster.model.User">
+        select user.id,
+               username,
+               password,
+               enable,
+               create_date,
+               role_id,
+               name   as role_name,
+               nameCN as role_nameCN
+        from user
+                 left join role on user.role_id = role.id
+        where enable = 0
+        order by create_date
+        limit ${offset}, ${limit};
+    </select>
+
+    <update id="modifyUserEnable" flushCache="true">
+        update user
+        set enable = #{enable}
+        where id = #{id};
+    </update>
+
+    <resultMap id="userMap" type="cn.wbhan.disaster.model.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="enable" column="enable"/>
+        <result property="createDate" column="create_date"/>
+        <association property="role" javaType="cn.wbhan.disaster.model.Role">
+            <id property="id" column="role_id"/>
+            <result property="name" column="role_name"/>
+            <result property="nameCN" column="role_nameCN"/>
+        </association>
+    </resultMap>
+</mapper>

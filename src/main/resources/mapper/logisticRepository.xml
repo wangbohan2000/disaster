@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wbhan.disaster.repository.LogisticRepository">
+    <insert id="insert" parameterType="cn.wbhan.disaster.model.Logistic" useGeneratedKeys="true">
+        insert into logistic(manager_id, dest_id, status, start_time, end_time, goods_id, disaster_id)
+        values (#{manager.id}, #{dest.id}, #{status}, #{startTime}, #{endTime}, #{goods.id}, #{disaster.id});
+    </insert>
+
+    <delete id="deleteById" parameterType="long">
+        delete
+        from logistic
+        where id = #{id};
+    </delete>
+
+    <update id="update" parameterType="cn.wbhan.disaster.model.Logistic">
+        update logistic
+        set manager_id  = #{manager.id},
+            dest_id     = #{dest.id},
+            status      = #{status},
+            start_time  = #{startTime},
+            end_time    = #{endTime},
+            goods_id    = #{goods.id},
+            disaster_id = #{disaster_id}
+        where id = #{id};
+    </update>
+
+    <select id="findById" parameterType="long" resultType="cn.wbhan.disaster.model.Logistic">
+        select l.id                as id,
+               l.manager_id        as manager_id,
+               l.dest_id           as dest_id,
+               l.status            as status,
+               l.start_time        as start_time,
+               l.end_time          as end_time,
+               l.goods_id          as goods_id,
+               ud.id               as ud_id,
+               ud.username         as ud_username,
+               ud.password         as ud_password,
+               ud.create_date      as ud_create_date,
+               ud.enable           as ud_enable,
+               um.username         as um_username,
+               um.password         as um_password,
+               um.create_date      as um_create_date,
+               um.enable           as um_enable,
+               d.id                as d_id,
+               d.pass              as d_pass,
+               d.createDate        as d_createDate,
+               d.details           as d_details,
+               d.title             as d_title,
+               d.expect_goods_cnt  as d_expect_goods_cnt,
+               d.expect_goods_name as d_expect_goods_name,
+               d.expect_goods_unit as d_expect_goods_unit
+        from logistic l
+                 left join user ud on l.dest_id = ud.id
+                 left join user um on l.manager_id = um.id
+                 left join disaster d on l.disaster_id = d.id
+        where l.id = #{id};
+    </select>
+
+    <select id="findAll" parameterType="long" resultType="cn.wbhan.disaster.model.Logistic">
+        select l.id                as id,
+               l.manager_id        as manager_id,
+               l.dest_id           as dest_id,
+               l.status            as status,
+               l.start_time        as start_time,
+               l.end_time          as end_time,
+               l.goods_id          as goods_id,
+               ud.id               as ud_id,
+               ud.username         as ud_username,
+               ud.password         as ud_password,
+               ud.create_date      as ud_create_date,
+               ud.enable           as ud_enable,
+               um.username         as um_username,
+               um.password         as um_password,
+               um.create_date      as um_create_date,
+               um.enable           as um_enable,
+               d.id                as d_id,
+               d.pass              as d_pass,
+               d.createDate        as d_createDate,
+               d.details           as d_details,
+               d.title             as d_title,
+               d.expect_goods_cnt  as d_expect_goods_cnt,
+               d.expect_goods_name as d_expect_goods_name,
+               d.expect_goods_unit as d_expect_goods_unit
+        from logistic l
+                 left join user ud on l.dest_id = ud.id
+                 left join user um on l.manager_id = um.id
+                 left join disaster d on l.disaster_id = d.id
+        order by l.start_time
+        limit ${offset}, ${limit};
+    </select>
+
+    <resultMap id="logisticMap" type="cn.wbhan.disaster.model.Logistic">
+        <id property="id" column="id"/>
+        <result property="status" column="status"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <association property="manager" javaType="cn.wbhan.disaster.model.User">
+            <id property="id" column="um_id"/>
+            <result property="username" column="um_username"/>
+            <result property="password" column="um_password"/>
+            <result property="enable" column="um_enable"/>
+            <result property="createDate" column="um_create_date"/>
+        </association>
+        <association property="dest" javaType="cn.wbhan.disaster.model.User">
+            <id property="id" column="ud_id"/>
+            <result property="username" column="ud_username"/>
+            <result property="password" column="ud_password"/>
+            <result property="enable" column="ud_enable"/>
+            <result property="createDate" column="ud_create_date"/>
+        </association>
+        <association property="goods" javaType="cn.wbhan.disaster.model.Goods">
+            <id property="id" column="goods_id"/>
+        </association>
+        <association property="disaster" javaType="cn.wbhan.disaster.model.Disaster">
+            <id property="id" column="d_id"/>
+            <result property="createDate" column="d_createDate"/>
+            <result property="details" column="d_details"/>
+            <result property="title" column="d_title"/>
+            <result property="pass" column="d_pass"/>
+            <result property="expectGoodsUnit" column="d_expect_goods_unit"/>
+            <result property="expectGoodsCnt" column="d_expect_goods_cnt"/>
+            <result property="expectGoodsName" column="d_expect_goods_name"/>
+        </association>
+    </resultMap>
+</mapper>

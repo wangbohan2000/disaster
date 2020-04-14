@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wbhan.disaster.repository.vo.DisasterLogisticRepository">
+    <select id="findAllDLByUsername" resultMap="disasterLogisticMap">
+        select d.id                         as id,
+               d.title                      as title,
+               d.details                    as details,
+               d.createDate                 as createDate,
+               d.expect_goods_name          as expect_goods_name,
+               d.expect_goods_cnt           as expect_goods_cnt,
+               d.expect_goods_unit          as expect_goods_unit,
+               d.pass                       as pass,
+               u.id                         as u_id,
+               u.username                   as u_username,
+               COALESCE(l.status, '暂无物流信息') as l_status
+        from disaster d
+                 left join user u on d.provider_id = u.id
+                 left join logistic l on d.id = l.disaster_id
+        where u.username = #{un}
+        order by d.createDate desc
+        limit ${offset}, ${limit};
+    </select>
+
+    <resultMap id="disasterLogisticMap" type="cn.wbhan.disaster.model.vo.DisasterLogisticVo">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="details" column="details"/>
+        <result property="createDate" column="createDate"/>
+        <result property="expectGoodsName" column="expect_goods_name"/>
+        <result property="expectGoodsCnt" column="expect_goods_cnt"/>
+        <result property="expectGoodsUnit" column="expect_goods_unit"/>
+        <result property="pass" column="pass"/>
+        <result property="status" column="l_status"/>
+        <association property="provider" javaType="cn.wbhan.disaster.model.User">
+            <id property="id" column="u_id"/>
+            <result property="username" column="u_username"/>
+        </association>
+    </resultMap>
+</mapper>

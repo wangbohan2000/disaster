@@ -1,0 +1,281 @@
+<!-- 上传可提供物资 -->
+
+
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org/">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上传可提供物资</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/nifty.min.css" rel="stylesheet">
+    <link href="/premium/icon-sets/icons/line-icons/premium-line-icons.min.css" rel="stylesheet">
+    <link href="/premium/icon-sets/icons/solid-icons/premium-solid-icons.min.css" rel="stylesheet">
+    <link href="/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet"/>
+    <link href="/plugins/toastr/toastr.min.css" rel="stylesheet"/>
+    <link href="/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
+
+    <style>
+        /* 防止input框重叠在一起，清除BFC */
+        .form-group {
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+<div id="container" class="effect mainnav-lg">
+
+    <!--NAVBAR-->
+    <!--===================================================-->
+    <header id="navbar">
+        <div id="navbar-container" class="boxed">
+
+            <!--Brand logo & name-->
+            <!--================================-->
+            <div class="navbar-header">
+                <a href="index.html" class="navbar-brand">
+                    <img src="/img/logo.png" alt="Nifty Logo" class="brand-icon">
+                    <div class="brand-title">
+                        <span style="font-size: 1.5rem;">应急物流信息系统</span>
+                    </div>
+                </a>
+            </div>
+            <!--================================-->
+            <!--End brand logo & name-->
+
+
+            <!--Navbar Dropdown-->
+            <!--================================-->
+            <div class="navbar-content clearfix">
+                <ul class="nav navbar-top-links pull-left">
+
+                    <!--Navigation toogle button-->
+                    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                    <li class="tgl-menu-btn">
+                        <a class="mainnav-toggle" href="#">
+                            <i class="pli-view-list icon-lg"></i>
+                        </a>
+                    </li>
+                    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                    <!--End Navigation toogle button-->
+                </ul>
+            </div>
+            <!--================================-->
+            <!--End Navbar Dropdown-->
+
+        </div>
+    </header>
+    <!--===================================================-->
+    <!--END NAVBAR-->
+
+    <div class="boxed">
+
+        <!--CONTENT CONTAINER-->
+        <!--===================================================-->
+        <div id="content-container">
+
+            <!--Page Title-->
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="page-title">
+                <h1 class="page-header text-overflow">Welcome</h1>
+
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <!--End page title-->
+
+
+            <!--Breadcrumb-->
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <ol class="breadcrumb">
+                <li><a th:href="@{/}">首页</a></li>
+                <li class="active">上传可提供物资</li>
+            </ol>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <!--End breadcrumb-->
+
+
+            <!--Page content-->
+            <!--===================================================-->
+            <div id="page-content">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">上传可提供物资</h3>
+                        </div>
+
+                        <form method="post" th:action="@{/provider/goods}" id="add_goods_form">
+                            <div class="panel-body">
+
+                                <p class="bord-btm pad-ver text-main text-bold">个人信息</p>
+                                <br>
+                                <fieldset>
+
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">当前用户</label>
+                                        <div class="col-lg-7">
+                                            <!-- 从后台或得的值放到value -->
+                                            <!-- <input type="text" value="<%=request.getAttribute("expense_num_create")%>"  class="form-control" readonly="readonly" name="expense_num"  placeholder="自动生成报销单号"> -->
+                                            <input type="text" th:value="${session.user.username}" class="form-control"
+                                                   readonly="readonly" name="current_user" placeholder="获取当前用户">
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+                                <p class="bord-btm pad-ver text-main text-bold">物资信息</p>
+                                <br>
+
+
+                                <fieldset>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">物资名称</label>
+                                        <div class="col-lg-7">
+                                            <input name="goods_name" type="text" class="form-control"
+                                                   placeholder="请输入该物资名称">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">物资数量</label>
+                                        <div class="col-lg-7">
+                                            <input name="goods_mount" type="text" class="form-control"
+                                                   placeholder="请输入该物资数量" autocomplete="off">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">计量单位</label>
+                                        <div class="col-lg-7">
+                                            <input name="goods_unit" type="text" class="form-control"
+                                                   placeholder="请输入该物资计量单位">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" id='datetimepicker2'>
+                                        <label class="col-lg-3 control-label">上架时间</label>
+                                        <div class="col-lg-7">
+                                            <!-- <input type="text" class="form-control" class="layui-input" name="csrq" id="csrq" placeholder="请输入出生日期"> -->
+
+
+                                            <!--Bootstrap Datepicker : Component-->
+                                            <!--===================================================-->
+                                            <div id="demo-dp-component">
+                                                <div class="input-group date">
+                                                    <input type="text" class="form-control" name="create_time"
+                                                           autocomplete="off">
+                                                    <span class="input-group-addon">
+                                                            <svg class="bi bi-calendar" width="1em" height="1em"
+                                                                 viewBox="0 0 16 16" fill="currentColor"
+                                                                 xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd"
+                                                                      d="M14 0H2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"
+                                                                      clip-rule="evenodd"/>
+                                                                <path fill-rule="evenodd"
+                                                                      d="M6.5 7a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2z"
+                                                                      clip-rule="evenodd"/>
+                                                              </svg>
+                                                        </span>
+                                                </div>
+                                                <!-- <small class="text-muted">Auto close on select</small> -->
+                                            </div>
+                                            <!--===================================================-->
+
+
+                                        </div>
+                                    </div>
+
+
+                                </fieldset>
+                            </div>
+
+                            <div class="panel-footer" style="overflow: hidden;">
+                                <div class="row col-lg-10" style="text-align:right">
+                                    <button class="btn btn-primary" type="submit">提交</button>
+                                </div>
+                            </div>
+                            <br><br>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--===================================================-->
+            <!--End page content-->
+
+
+        </div>
+        <!--===================================================-->
+        <!--END CONTENT CONTAINER-->
+
+
+        <!--MAIN NAVIGATION-->
+        <!--===================================================-->
+        <div th:include="/public/navbar.html"></div>
+        <!--===================================================-->
+        <!--END MAIN NAVIGATION-->
+
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <!--===================================================-->
+    <footer id="footer">
+
+
+        <!-- Visible when footer positions are static -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <div class="hide-fixed pull-right pad-rgt">
+            2020 Emergency Logistics Information System!
+        </div>
+
+
+    </footer>
+    <!--===================================================-->
+    <!-- END FOOTER -->
+
+
+    <!-- SCROLL PAGE BUTTON -->
+    <!--===================================================-->
+    <button class="scroll-top btn">
+        <i class="pci-chevron chevron-up"></i>
+    </button>
+    <!--===================================================-->
+
+
+</div>
+<!--===================================================-->
+<!-- END OF CONTAINER -->
+<link href="/css/pace.min.css" rel="stylesheet">
+<script src="/js/pace.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/nifty.min.js"></script>
+<script src="/plugins/bootstrap-validator/bootstrapValidator.min.js"></script>
+<script src="/js/StystemPage/addGoods-form-validation.js"></script>
+<script src="/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="/plugins/toastr/toastr.min.js"></script>
+<script src="/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script>
+    $('#demo-dp-component .input-group.date').datepicker(
+        {
+            //设置时间格式
+            format: "yyyy-mm-dd",
+            todayBtn: "linked",
+            autoclose: true,
+            todayHighlight: true,
+            // 设置方向
+            orientation: "bottom left"
+        }
+    );
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>首页 | 应急物流信息系统</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/nifty.min.css" rel="stylesheet">
+    <link href="/premium/icon-sets/icons/line-icons/premium-line-icons.min.css" rel="stylesheet">
+    <link href="/premium/icon-sets/icons/solid-icons/premium-solid-icons.min.css" rel="stylesheet">
+    <link href="/css/pace.min.css"/>
+    <script src="/js/pace.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/nifty.min.js"></script>
+</head>
+<body>
+<div class="effect mainnav-lg" id="container">
+
+    <!--NAVBAR-->
+    <!--===================================================-->
+    <header id="navbar">
+        <div class="boxed" id="navbar-container">
+
+            <!--Brand logo & name-->
+            <!--================================-->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">
+                    <img alt="Nifty Logo" class="brand-icon" src="/img/logo.png">
+                    <div class="brand-title">
+                        <span style="font-size: 1.5rem;">应急物流信息系统</span>
+                    </div>
+                </a>
+            </div>
+            <!--================================-->
+            <!--End brand logo & name-->
+
+
+            <!--Navbar Dropdown-->
+            <!--================================-->
+            <div class="navbar-content clearfix">
+                <ul class="nav navbar-top-links pull-left">
+
+                    <!--Navigation toogle button-->
+                    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                    <li class="tgl-menu-btn">
+                        <a class="mainnav-toggle" href="#">
+                            <i class="pli-view-list icon-lg"></i>
+                        </a>
+                    </li>
+                    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                    <!--End Navigation toogle button-->
+                </ul>
+            </div>
+            <!--================================-->
+            <!--End Navbar Dropdown-->
+
+        </div>
+    </header>
+    <!--===================================================-->
+    <!--END NAVBAR-->
+
+    <div class="boxed">
+
+        <!--CONTENT CONTAINER-->
+        <!--===================================================-->
+        <div id="content-container">
+
+            <!--Page Title-->
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="page-title">
+                <h1 class="page-header text-overflow">Welcome</h1>
+
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <!--End page title-->
+
+
+            <!--Breadcrumb-->
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <ol class="breadcrumb">
+                <li><a href="#">登录</a></li>
+                <li class="active">首页</li>
+            </ol>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <!--End breadcrumb-->
+
+
+            <!--Page content-->
+            <!--===================================================-->
+            <div id="page-content">
+
+
+                <div class="col-sm-12">
+                    <div class="jumbotron text-main">
+                        <h1>欢迎使用应急物流信息系统</h1><br><br>
+                        <p>您可以点击左侧选项卡选择相应的功能</p>
+                    </div>
+                    <div class="panel">
+
+                        <!--Carousel-->
+                        <!--===================================================-->
+                        <div class="carousel slide" data-ride="carousel" id="demo-carousel">
+
+                            <!--Indicators-->
+                            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                            <ol class="carousel-indicators out">
+                                <li class="active" data-slide-to="0" data-target="#demo-carousel"></li>
+                                <li data-slide-to="1" data-target="#demo-carousel"></li>
+                                <li data-slide-to="2" data-target="#demo-carousel"></li>
+                            </ol>
+                            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+                            <div class="carousel-inner text-center">
+
+                                <!--Item 1-->
+                                <div class="item active">
+                                    <h4 class="text-main">快速响应受灾一线</h4>
+                                    <p>一线快速进行上报，确保消息及时传递</p>
+                                </div>
+
+                                <!--Item 2-->
+                                <div class="item">
+                                    <h4 class="text-main">易于使用</h4>
+                                    <p>扁平化页面设计,无脑化使用</p>
+                                </div>
+
+                                <!--Item 3-->
+                                <div class="item">
+                                    <h4 class="text-main">更清晰的工作区</h4>
+                                    <p>决策层能快速进行调度</p>
+                                </div>
+                            </div>
+
+                            <!--carousel-control-->
+                            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                            <a class="carousel-control left" data-slide="prev" href="#demo-carousel"><i
+                                    class="demo-pli-arrow-left icon-2x"></i></a>
+                            <a class="carousel-control right" data-slide="next" href="#demo-carousel"><i
+                                    class="demo-pli-arrow-right icon-2x"></i></a>
+                            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+                        </div>
+                        <!--===================================================-->
+                        <!--End Carousel-->
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!--===================================================-->
+            <!--End page content-->
+
+        </div>
+        <!--===================================================-->
+        <!--END CONTENT CONTAINER-->
+
+
+        <!--MAIN NAVIGATION-->
+        <!--===================================================-->
+        <div th:include="/public/navbar.html"></div>
+        <!--===================================================-->
+        <!--END MAIN NAVIGATION-->
+
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <!--===================================================-->
+    <footer id="footer">
+
+
+        <!-- Visible when footer positions are static -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <div class="hide-fixed pull-right pad-rgt">
+            2020 Emergency Logistics Information System!
+        </div>
+
+
+    </footer>
+    <!--===================================================-->
+    <!-- END FOOTER -->
+
+
+    <!-- SCROLL PAGE BUTTON -->
+    <!--===================================================-->
+    <button class="scroll-top btn">
+        <i class="pci-chevron chevron-up"></i>
+    </button>
+    <!--===================================================-->
+
+
+</div>
+<!--===================================================-->
+<!-- END OF CONTAINER -->
+
+
+</body>
+
+</html>

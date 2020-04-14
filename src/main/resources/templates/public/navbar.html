@@ -1,0 +1,170 @@
+<nav id="mainnav-container" xmlns:th="http://www.thymeleaf.org/">
+    <div id="mainnav">
+
+        <!--Menu-->
+        <!--================================-->
+        <div id="mainnav-menu-wrap">
+            <div class="nano">
+                <div class="nano-content">
+
+                    <!--Profile Widget-->
+                    <!--================================-->
+                    <div class="mainnav-profile" id="mainnav-profile">
+                        <div class="profile-wrap text-center">
+                            <div class="pad-btm">
+                                <img alt="Profile Picture" class="img-circle img-md"
+                                     src="/img/profile-photos/1.png">
+                            </div>
+                            <a aria-expanded="false" class="box-block" data-toggle="collapse"
+                               href="#profile-nav">
+                                            <span class="pull-right dropdown-toggle">
+                                                <i class="dropdown-caret"></i>
+                                            </span>
+                                <p class="mnp-name">欢迎</p>
+                                <span class="mnp-desc"
+                                      th:text="${session.user.role.nameCN} + ': ' + ${session.user.username}">Unknown</span>
+                            </a>
+                        </div>
+                        <div class="collapse list-group bg-trans" id="profile-nav">
+                            <a class="list-group-item"
+                               th:href="@{/signOut(un=${session.user.username})}">
+                                <i class="pli-unlock icon-lg icon-fw"></i> 登出
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <ul class="list-group" id="mainnav-menu">
+
+                        <!--Category name-->
+                        <li class="list-header">欢迎</li>
+
+                        <!--Menu list item-->
+                        <li class="active-link">
+                            <a th:href="@{/}">
+                                <svg class="bi bi-house" fill="currentColor" height="1em" viewBox="0 0 16 16"
+                                     width="1em" xmlns="http://www.w3.org/2000/svg">
+                                    <path clip-rule="evenodd"
+                                          d="M2 13.5V7h1v6.5a.5.5 0 00.5.5h9a.5.5 0 00.5-.5V7h1v6.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 13.5zm11-11V6l-2-2V2.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5z"
+                                          fill-rule="evenodd"/>
+                                    <path clip-rule="evenodd"
+                                          d="M7.293 1.5a1 1 0 011.414 0l6.647 6.646a.5.5 0 01-.708.708L8 2.207 1.354 8.854a.5.5 0 11-.708-.708L7.293 1.5z"
+                                          fill-rule="evenodd"/>
+                                </svg>
+                                <span class="menu-title">首页</span>
+                            </a>
+                        </li>
+
+                        <!--Category name-->
+                        <li class="list-header">功能</li>
+
+                        <!--Menu list item-->
+                        <li th:if="${session.user.role.name == 'ROLE_ADMIN'}">
+
+                            <a href="#">
+                                <svg class="bi bi-person-lines-fill" fill="currentColor" height="1em"
+                                     viewBox="0 0 16 16" width="1em"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path clip-rule="evenodd"
+                                          d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 100-6 3 3 0 000 6zm7 1.5a.5.5 0 01.5-.5h2a.5.5 0 010 1h-2a.5.5 0 01-.5-.5zm-2-3a.5.5 0 01.5-.5h4a.5.5 0 010 1h-4a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h4a.5.5 0 010 1h-4a.5.5 0 01-.5-.5zm2 9a.5.5 0 01.5-.5h2a.5.5 0 010 1h-2a.5.5 0 01-.5-.5z"
+                                          fill-rule="evenodd"/>
+                                </svg>
+                                <span class="menu-title">用户管理</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a th:href="@{/admin/userList}">用户列表</a></li>
+                            </ul>
+                        </li>
+
+                        <!--Menu list item-->
+                        <li th:if="${session.user.role.name == 'ROLE_FRONT'}">
+                            <a href="#">
+                                <svg class="bi bi-cone-striped" fill="currentColor" height="1em"
+                                     viewBox="0 0 16 16"
+                                     public
+                                /goodsList width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd"
+                                      d="M7.879 11.015a.5.5 0 01.242 0l6 1.5a.5.5 0 01.037.96l-6 2a.499.499 0 01-.316 0l-6-2a.5.5 0 01.037-.96l6-1.5z"
+                                      fill-rule="evenodd"/>
+                                <path
+                                        d="M11.885 12.538l-.72-2.877C10.303 9.873 9.201 10 8 10s-2.303-.127-3.165-.339l-.72 2.877c-.073.292-.002.6.256.756C4.86 13.589 5.916 14 8 14s3.14-.411 3.63-.706c.257-.155.328-.464.255-.756zM9.97 4.88l.953 3.811C10.159 8.878 9.14 9 8 9c-1.14 0-2.159-.122-2.923-.309L6.03 4.88C6.635 4.957 7.3 5 8 5s1.365-.043 1.97-.12zm-.245-.978L8.97.88C8.718-.13 7.282-.13 7.03.88L6.275 3.9C6.8 3.965 7.382 4 8 4c.618 0 1.2-.036 1.725-.098z"/>
+                                </svg>
+                                <span class="menu-title">受灾一线</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a th:href="@{/public/goodsList}">物资列表</a></li>
+                                <li>
+                                    <a th:href="@{/front/uploadDisaster}">提交受灾情况</a>
+                                </li>
+                                <li><a th:href="@{/front/selfDisasterList}">我的提交记录</a></li>
+                            </ul>
+                        </li>
+
+                        <!--Menu list item-->
+                        <li th:if="${session.user.role.name == 'ROLE_MANAGER'}">
+                            <a href="#">
+                                <svg class="bi bi-puzzle-fill" fill="currentColor" height="1em"
+                                     viewBox="0 0 16 16"
+                                     width="1em" xmlns="http://www.w3.org/2000/svg">
+                                    <path clip-rule="evenodd"
+                                          d="M3.112 3.645A1.5 1.5 0 014.605 2H7a.5.5 0 01.5.5v.382c0 .696-.497 1.182-.872 1.469a.459.459 0 00-.115.118.113.113 0 00-.012.025L6.5 4.5v.003l.003.01c.004.01.014.028.036.053a.86.86 0 00.27.194C7.09 4.9 7.51 5 8 5c.492 0 .912-.1 1.19-.24a.86.86 0 00.271-.194.213.213 0 00.036-.054l.003-.01v-.008a.112.112 0 00-.012-.025.459.459 0 00-.115-.118c-.375-.287-.872-.773-.872-1.469V2.5A.5.5 0 019 2h2.395a1.5 1.5 0 011.493 1.645L12.645 6.5h.237c.195 0 .42-.147.675-.48.21-.274.528-.52.943-.52.568 0 .947.447 1.154.862C15.877 6.807 16 7.387 16 8s-.123 1.193-.346 1.638c-.207.415-.586.862-1.154.862-.415 0-.733-.246-.943-.52-.255-.333-.48-.48-.675-.48h-.237l.243 2.855A1.5 1.5 0 0111.395 14H9a.5.5 0 01-.5-.5v-.382c0-.696.497-1.182.872-1.469a.459.459 0 00.115-.118.113.113 0 00.012-.025L9.5 11.5v-.003l-.003-.01a.214.214 0 00-.036-.053.859.859 0 00-.27-.194C8.91 11.1 8.49 11 8 11c-.491 0-.912.1-1.19.24a.859.859 0 00-.271.194.214.214 0 00-.036.054l-.003.01v.002l.001.006a.113.113 0 00.012.025c.016.027.05.068.115.118.375.287.872.773.872 1.469v.382a.5.5 0 01-.5.5H4.605a1.5 1.5 0 01-1.493-1.645L3.356 9.5h-.238c-.195 0-.42.147-.675.48-.21.274-.528.52-.943.52-.568 0-.947-.447-1.154-.862C.123 9.193 0 8.613 0 8s.123-1.193.346-1.638C.553 5.947.932 5.5 1.5 5.5c.415 0 .733.246.943.52.255.333.48.48.675.48h.238l-.244-2.855z"
+                                          fill-rule="evenodd"/>
+                                </svg>
+                                <span class="menu-title">决策用户</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a href="/manager/approveDisaster">审批一线订单</a>
+                                </li>
+                                <li><a href="/manager/approveList">已审批订单</a></li>
+
+                            </ul>
+                        </li>
+
+                        <!--Menu list item-->
+                        <li th:if="${session.user.role.name == 'ROLE_PROVIDER'}">
+                            <a href="#">
+                                <svg class="bi bi-cloud-fill" fill="currentColor" height="1em"
+                                     viewBox="0 0 16 16"
+                                     width="1em" xmlns="http://www.w3.org/2000/svg">
+                                    <path clip-rule="evenodd"
+                                          d="M3.5 13a3.5 3.5 0 11.59-6.95 5.002 5.002 0 119.804 1.98A2.5 2.5 0 0113.5 13h-10z"
+                                          fill-rule="evenodd"/>
+                                </svg>
+                                <span class="menu-title">物资物流供应商</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li>
+                                    <a th:href="@{/provider/uploadGoods}">上传物资</a>
+                                </li>
+                                <li><a th:href="@{/public/goodsList}">物资列表</a></li>
+                                <li><a th:href="@{/provider/selfGoodsList}">上传记录</a></li>
+                            </ul>
+                        </li>
+
+
+                        <li class="list-divider"></li>
+
+
+                    </ul>
+
+
+                </div>
+            </div>
+        </div>
+        <!--================================-->
+        <!--End menu-->
+
+    </div>
+</nav>

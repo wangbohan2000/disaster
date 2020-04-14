@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wbhan.disaster.repository.GoodsRepository">
+    <resultMap id="goodsMap" type="cn.wbhan.disaster.model.Goods">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="cnt" column="cnt"/>
+        <result property="unit" column="unit"/>
+        <result property="createDate" column="createDate"/>
+        <association javaType="cn.wbhan.disaster.model.User" property="provider">
+            <result property="id" column="u_id"/>
+            <result property="createDate" column="u_createDate"/>
+            <result property="enable" column="u_enable"/>
+            <result property="username" column="u_username"/>
+            <result property="password" column="u_password"/>
+        </association>
+    </resultMap>
+
+    <insert id="insert" flushCache="true" useGeneratedKeys="true" parameterType="cn.wbhan.disaster.model.Goods">
+        insert into goods(name, cnt, unit, createDate, provider_id)
+        values (#{name}, #{cnt}, #{unit}, #{createDate}, #{provider.id});
+    </insert>
+
+    <delete id="deleteById" flushCache="true">
+        delete
+        from goods
+        where id = #{id};
+    </delete>
+
+    <update id="update" flushCache="true" parameterType="cn.wbhan.disaster.model.Goods">
+        update goods
+        set name        = #{name},
+            cnt         = #{cnt},
+            unit        = #{unit},
+            createDate  = #{createDate},
+            provider_id = #{provider.id}
+        where id = #{id};
+    </update>
+
+    <select id="findByName" parameterType="string" resultMap="goodsMap">
+        select goods.id      as id,
+               name,
+               cnt,
+               unit,
+               createDate,
+               u.id          as u_id,
+               u.username    as u_username,
+               u.password    as u_password,
+               u.enable      as u_enable,
+               u.create_date as u_createDate
+        from goods
+                 left join user u on goods.provider_id = u.id
+        where name = #{name};
+    </select>
+
+    <select id="findById" parameterType="long" resultMap="goodsMap">
+        select g.id          as id,
+               name,
+               cnt,
+               unit,
+               createDate,
+               u.id          as u_id,
+               u.username    as u_username,
+               u.password    as u_password,
+               u.enable      as u_enable,
+               u.create_date as u_createDate
+        from goods g
+                 left join user u on g.provider_id = u.id
+        where g.id = #{id};
+    </select>
+
+    <select id="findAll" resultMap="goodsMap">
+        select g.id          as id,
+               name,
+               cnt,
+               unit,
+               createDate,
+               u.id          as u_id,
+               u.username    as u_username,
+               u.password    as u_password,
+               u.enable      as u_enable,
+               u.create_date as u_createDate
+        from goods g
+                 left join user u on g.provider_id = u.id
+        order by g.createDate
+        limit ${offset}, ${limit};
+    </select>
+
+    <select id="findAllByUsername" resultMap="goodsMap">
+        select g.id          as id,
+               name,
+               cnt,
+               unit,
+               createDate,
+               u.id          as u_id,
+               u.username    as u_username,
+               u.password    as u_password,
+               u.enable      as u_enable,
+               u.create_date as u_createDate
+        from goods g
+                 left join user u on g.provider_id = u.id
+        where u.username = #{username}
+        order by g.createDate
+        limit ${offset}, ${limit};
+    </select>
+</mapper>
