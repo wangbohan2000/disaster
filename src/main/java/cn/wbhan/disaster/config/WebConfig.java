@@ -27,7 +27,7 @@ public class WebConfig implements ErrorPageRegistrar, WebMvcConfigurer {
         registry.addViewController("/front/uploadDisaster").setViewName("front/upload-disaster-page");
         registry.addViewController("/front/selfDisasterList").setViewName("front/self-disaster-list-page");
 
-        registry.addViewController("/public/goodsList").setViewName("public/goods-list-page");
+        registry.addViewController("/pub/goodsList").setViewName("pub/goods-list-page");
 
         registry.addViewController("/manager/approveDisaster").setViewName("manager/approve-disaster-page");
         registry.addViewController("/manager/approveList").setViewName("manager/approve-list-page");

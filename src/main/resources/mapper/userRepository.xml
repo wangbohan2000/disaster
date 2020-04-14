@@ -53,7 +53,7 @@
     </select>
 
     <select id="findAllDisabled" flushCache="true" resultMap="userMap" resultType="cn.wbhan.disaster.model.User">
-        select user.id,
+        select user.id as id,
                username,
                password,
                enable,

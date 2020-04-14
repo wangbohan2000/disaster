@@ -34,6 +34,7 @@ public class AccountService {
 
     /**
      * sign in
+     *
      * @param username username
      * @param password password
      * @param response repassword
@@ -42,7 +43,7 @@ public class AccountService {
     public boolean signIn(String username, String password, HttpServletResponse response) {
         User user = userRepository.findByUsername(username);
         if (!password.equals(user.getPassword())) return false;
-        Cookie cookie = new Cookie(customConfig.getCookieKey(), PassUtil.encode(password));
+        Cookie cookie = new Cookie(customConfig.getCookieKey(), PassUtil.encode(username));
         response.addCookie(cookie);
         return true;
     }

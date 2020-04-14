@@ -32,6 +32,7 @@ public class MainController {
         Cookie[] cookies = request.getCookies();
         String userOpt = cookieService.findCookie(request);
         if (userOpt == null) return "account-page";
+        logger.info("userOpt is " + userOpt);
         User user = userRepository.findByUsername(PassUtil.decode(userOpt));
         request.getSession().setAttribute("user", user);
         logger.info(user.toString());
