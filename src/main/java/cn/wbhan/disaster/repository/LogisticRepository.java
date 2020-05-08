@@ -2,6 +2,7 @@ package cn.wbhan.disaster.repository;
 
 import cn.wbhan.disaster.model.Logistic;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface LogisticRepository {
     Logistic findById(Long id);
 
     List<Logistic> findAll(String order, String offset, String limit);
+
+    void updateStatus(int id, String status);
 }

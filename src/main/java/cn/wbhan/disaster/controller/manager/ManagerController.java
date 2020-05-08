@@ -6,6 +6,7 @@ import cn.wbhan.disaster.model.Logistic;
 import cn.wbhan.disaster.model.dto.Result;
 import cn.wbhan.disaster.repository.DisasterRepository;
 import cn.wbhan.disaster.repository.GoodsRepository;
+import cn.wbhan.disaster.repository.LogisticRepository;
 import cn.wbhan.disaster.service.DisasterLogisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,8 @@ public class ManagerController {
 
     @Resource
     DisasterRepository disasterRepository;
+    @Resource
+    LogisticRepository logisticRepository;
     @Resource
     GoodsRepository goodsRepository;
     @Autowired
@@ -66,4 +69,20 @@ public class ManagerController {
         return Result.success(200, "操作成功", true);
     }
 
+    @GetMapping("/logistic")
+    @ResponseBody
+    public List<Logistic> logistics(String order, String offset, String limit) {
+        return logisticRepository.findAll(order, offset, limit);
+    }
+
+    @PostMapping("/logistic/change_logistic_status")
+    @ResponseBody
+    public Result<Boolean> changeLogisticStatus(@RequestParam Integer id,
+                                                @RequestParam String status) {
+        // TODO: 2020/4/24 更改物流状态
+        System.err.println(id);
+        System.err.println(status);
+        logisticRepository.updateStatus(id, status);
+        return Result.success(200, "更改成功", true);
+    }
 }

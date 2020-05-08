@@ -26,6 +26,16 @@
         where id = #{id};
     </update>
 
+    <update id="updateStatus">
+        update logistic
+        <set>
+            status = #{status}
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
     <select id="findById" parameterType="long" resultType="cn.wbhan.disaster.model.Logistic">
         select l.id                as id,
                l.manager_id        as manager_id,
@@ -58,7 +68,7 @@
         where l.id = #{id};
     </select>
 
-    <select id="findAll" parameterType="long" resultType="cn.wbhan.disaster.model.Logistic">
+    <select id="findAll" resultMap="logisticMap" flushCache="true">
         select l.id                as id,
                l.manager_id        as manager_id,
                l.dest_id           as dest_id,
@@ -90,6 +100,12 @@
         order by l.start_time
         limit ${offset}, ${limit};
     </select>
+
+    <!--    <update id="updateStatus" flushCache="true">-->
+    <!--        update logistic-->
+    <!--        set status = '${status}'-->
+    <!--        where id = '${id}'-->
+    <!--    </update>-->
 
     <resultMap id="logisticMap" type="cn.wbhan.disaster.model.Logistic">
         <id property="id" column="id"/>
