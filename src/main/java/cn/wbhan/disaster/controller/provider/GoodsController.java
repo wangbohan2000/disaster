@@ -59,7 +59,7 @@ public class GoodsController {
         } catch (ParseException e) {
             System.err.println("parsing date exception...");
         }
-        return "redirect:/public/goodsList";
+        return "redirect:/pub/goodsList";
     }
 }
 
