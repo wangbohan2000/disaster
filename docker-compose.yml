@@ -1,0 +1,26 @@
+version: "3.0"
+
+services: 
+  web: 
+    build: ./web
+    ports: 
+      - 80
+    depends_on: 
+      - disaster_mysql
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 33060
+    depends_on: 
+      - disaster_mysql
+  disaster_mysql:
+    image: mysql:8.0.22
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: wangbohan
+    volumes: 
+      - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql
+    ports: 
+      - 3306
